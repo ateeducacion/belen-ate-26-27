@@ -1,0 +1,43 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obtener archivos
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Comprobar el sitio
+        run: node web/check.cjs
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+      - name: Subir solo el sitio público
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: web
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4

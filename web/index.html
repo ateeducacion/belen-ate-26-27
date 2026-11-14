@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112d29">
+  <meta name="description" content="El belén de ATE: una felicitación hecha entre compañeros. Descubre sus personajes y guarda tu lámina navideña.">
+  <title>ATE les desea Feliz Navidad</title>
+  <link rel="canonical" href="https://ateeducacion.github.io/belen-ate-26-27/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Belén de ATE">
+  <meta property="og:title" content="ATE les desea Feliz Navidad">
+  <meta property="og:description" content="Un belén, muchas historias. Una Navidad compartida con el equipo del Área de Tecnología Educativa.">
+  <meta property="og:url" content="https://ateeducacion.github.io/belen-ate-26-27/">
+  <meta property="og:image" content="https://ateeducacion.github.io/belen-ate-26-27/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1732">
+  <meta property="og:image:height" content="908">
+  <meta property="og:image:alt" content="ATE les desea Feliz Navidad. Un belén, muchas historias, junto a un portal iluminado y la estrella de Belén.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATE les desea Feliz Navidad">
+  <meta name="twitter:description" content="Un belén, muchas historias. Una Navidad compartida con el equipo de ATE.">
+  <meta name="twitter:image" content="https://ateeducacion.github.io/belen-ate-26-27/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Felicitación navideña de ATE con el portal de Belén bajo un cielo estrellado.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="content.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#personajes">Saltar a los personajes</a>
+  <header class="topbar"><a class="brand" href="#inicio" aria-label="Área de Tecnología Educativa, inicio"><img class="ate-logo" src="assets/ate-logo.png" width="556" height="575" alt="Área de Tecnología Educativa"><span>Una Navidad compartida</span></a><nav aria-label="Principal"><a href="#belen">El belén</a><a href="#personajes">Tu lámina</a></nav></header>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="saludo">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-copy"><p class="eyebrow">De nuestro equipo, para ustedes</p><h1 id="saludo">ATE les desea<br><em>Feliz Navidad</em></h1><p>Un belén, muchas historias y las personas que hacen especial nuestro día a día.</p><a class="button gold" href="#personajes">Encuentra tu personaje <span aria-hidden="true">↗</span></a></div>
+      <span class="hero-foot">Hecho con cariño, entre compañeros</span>
+    </section>
+    <section id="belen" class="section scene-section" aria-labelledby="scene-title">
+      <div class="section-heading"><div><p class="eyebrow">Todos tenemos un lugar</p><h2 id="scene-title">Nuestro pequeño belén</h2></div><p>Una escena para encontrarnos y celebrar lo que compartimos.</p></div>
+      <div class="scene" id="scene"><div class="scene-empty"><span aria-hidden="true">✦</span><p>Estamos preparando nuestro belén</p><small>Pronto estarán aquí todos los personajes de ATE.</small></div></div>
+      <div class="scene-toolbar"><p id="scene-note">Escenario navideño · personajes en preparación</p><a id="scene-download" class="text-link" hidden download>Descargar el belén completo ↓</a></div>
+    </section>
+    <section id="personajes" class="section" aria-labelledby="people-title">
+      <div class="section-heading"><div><p class="eyebrow">Las caras de esta Navidad</p><h2 id="people-title">Una lámina para cada persona</h2></div><p>Elige tu nombre para ver tu personaje y descargar tu recuerdo navideño.</p></div>
+      <label class="search-label" for="search">Busca tu nombre<input id="search" type="search" placeholder="Por ejemplo, Ivonne…" autocomplete="off"></label>
+      <p id="result-count" class="result-count" aria-live="polite"></p>
+      <div id="people" class="people-grid"></div>
+      <noscript><p>Activa JavaScript para consultar los personajes y sus láminas.</p></noscript>
+    </section>
+    <section class="collection section" aria-labelledby="collection-title"><span class="ornament" aria-hidden="true">✧</span><div><p class="eyebrow">Un recuerdo de todos</p><h2 id="collection-title">La colección completa</h2><p>Las diecisiete láminas reunidas en dos páginas, para guardar o imprimir.</p><a id="collection-download" class="button gold" hidden download>Descargar las dos páginas ↓</a><p id="collection-status" class="pending">La colección estará disponible cuando terminemos las ilustraciones.</p></div></section>
+  </main>
+  <footer><a class="brand" href="https://www3.gobiernodecanarias.org/medusa/ecoescuela/ate/" aria-label="Web del Área de Tecnología Educativa"><img class="ate-logo-full" src="assets/ate-logo-completo.png" width="300" height="171" alt="Área de Tecnología Educativa Medusa, con las islas Canarias"></a><p>Que no falten la ilusión, la compañía y las ganas de compartir.</p><span>Felices fiestas <span aria-hidden="true">✦</span></span></footer>
+  <dialog id="portrait"><button class="close" aria-label="Cerrar lámina" autofocus>×</button><img id="portrait-image" alt=""><p class="eyebrow" id="portrait-role"></p><h2 id="portrait-name"></h2><a id="portrait-download" class="button gold" download>Descargar lámina ↓</a><p id="portrait-pending" class="pending" hidden>Lámina imprimible en preparación.</p></dialog>
+</body>
+</html>
