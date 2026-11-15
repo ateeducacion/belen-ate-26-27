@@ -107,11 +107,5 @@ function openScene(src, alt) {
   enlarged.alt = alt;
   lightbox.showModal();
 }
-document.querySelectorAll('.scene-versions figure > a:first-child').forEach(link => {
-  link.addEventListener('click', event => {
-    event.preventDefault();
-    openScene(link.href, link.querySelector('img').alt);
-  });
-});
 document.querySelector('#scene-zoom').addEventListener('click', () => openScene(content.scene, 'Belén completo con las figuritas originales'));
 lightbox.querySelector('.close').addEventListener('click', () => lightbox.close());
