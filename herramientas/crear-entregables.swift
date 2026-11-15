@@ -103,7 +103,7 @@ precondition(Set(positions.map{$0.0}) == Set(persons.map{$0.id}))
 bitmap("output/video/capas/fondo.png", 3840, 2160) {
     image("web/assets/background.png").draw(in: CGRect(x:0,y:0,width:width,height:height))
 }
-bitmap("output/belen/belen-ate-16-9.png", 3840, 2160) {
+bitmap("output/belen/belen-composicion-anterior.png", 3840, 2160) {
     image("output/video/capas/fondo.png").draw(in: CGRect(x:0,y:0,width:width,height:height))
     NSColor(calibratedRed:0.035,green:0.12,blue:0.11,alpha:0.22).setFill(); NSBezierPath(rect:CGRect(x:0,y:0,width:width,height:height)).fill()
     text("ATE les desea Feliz Navidad", 1840, 122, "Times-Italic", width, .white)
