@@ -2,6 +2,9 @@ const content = window.belenContent;
 const people = document.querySelector('#people');
 const search = document.querySelector('#search');
 const dialog = document.querySelector('#portrait');
+let activePerson;
+// Copia ligera (WebP) de cada figura para la página; el PNG original queda para el diálogo.
+const thumb = person => person.image.replace('figuras/', 'figuras/web/').replace('.png', '.webp');
 const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 function addDownload(id, path, statusId) {
@@ -13,17 +16,27 @@ function addDownload(id, path, statusId) {
 }
 
 function showPortrait(person) {
+  activePerson = person;
+  document.querySelector('#portrait-styles').hidden = !person.realisticImage;
+  setPortraitStyle(false);
+  dialog.showModal();
+}
+
+function setPortraitStyle(realistic) {
+  const person = activePerson;
+  const sheet = realistic ? person.realisticSheet : person.sheet;
   const image = document.querySelector('#portrait-image');
-  image.src = person.image;
-  image.alt = `${person.name}, ${person.role}`;
+  image.src = realistic ? person.realisticImage : person.image;
+  image.alt = `${person.name}, ${person.role}, versión ${realistic ? 'realista' : 'figurita'}`;
   document.querySelector('#portrait-name').textContent = person.name;
   document.querySelector('#portrait-role').textContent = person.role;
   const link = document.querySelector('#portrait-download');
-  link.hidden = !person.sheet;
+  link.hidden = !sheet;
   link.removeAttribute('href');
-  if (person.sheet) link.href = person.sheet;
-  document.querySelector('#portrait-pending').hidden = Boolean(person.sheet);
-  dialog.showModal();
+  if (sheet) link.href = sheet;
+  document.querySelector('#portrait-pending').hidden = Boolean(sheet);
+  document.querySelector('#style-figure').setAttribute('aria-pressed', String(!realistic));
+  document.querySelector('#style-realistic').setAttribute('aria-pressed', String(realistic));
 }
 
 function render() {
@@ -39,7 +52,7 @@ function render() {
       button.className = 'art-button';
       button.setAttribute('aria-label', `Ver lámina de ${person.name}`);
       const image = document.createElement('img');
-      image.src = person.image;
+      image.src = thumb(person);
       image.alt = `${person.name} en el belén`;
       image.loading = 'lazy';
       image.width = 480;
@@ -67,22 +80,38 @@ function render() {
       action.setAttribute('download', '');
     }
     card.append(art, name, role, action);
+    if (person.realisticImage) {
+      const compare = document.createElement('button');
+      compare.className = 'compare-link';
+      compare.textContent = 'Ver figurita / realista';
+      compare.addEventListener('click', () => showPortrait(person));
+      card.append(compare);
+    }
     people.append(card);
   }
   document.querySelector('#result-count').textContent = matches.length ? `${matches.length} de ${content.people.length} personajes` : 'No encontramos ese nombre. Prueba con otro.';
 }
 
-if (content.scene) {
-  const image = document.createElement('img');
-  image.src = content.scene;
-  image.alt = 'Belén completo con los diecisiete compañeros de ATE y el Niño Jesús';
-  image.width = 1920;
-  image.height = 1080;
-  document.querySelector('#scene').replaceChildren(image);
-  document.querySelector('#scene-note').textContent = 'Nuestro belén, al completo';
-}
 addDownload('scene-download', content.scene);
 addDownload('collection-download', content.collection, 'collection-status');
 search.addEventListener('input', render);
 dialog.querySelector('.close').addEventListener('click', () => dialog.close());
+document.querySelector('#style-figure').addEventListener('click', () => setPortraitStyle(false));
+document.querySelector('#style-realistic').addEventListener('click', () => setPortraitStyle(true));
 render();
+
+const lightbox = document.querySelector('#scene-lightbox');
+function openScene(src, alt) {
+  const enlarged = lightbox.querySelector('img');
+  enlarged.src = src;
+  enlarged.alt = alt;
+  lightbox.showModal();
+}
+document.querySelectorAll('.scene-versions figure > a:first-child').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    openScene(link.href, link.querySelector('img').alt);
+  });
+});
+document.querySelector('#scene-zoom').addEventListener('click', () => openScene(content.scene, 'Belén completo con las figuritas originales'));
+lightbox.querySelector('.close').addEventListener('click', () => lightbox.close());

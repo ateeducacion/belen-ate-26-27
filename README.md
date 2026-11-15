@@ -14,12 +14,13 @@ Abre http://localhost:8000. También puedes abrir `web/index.html` directamente.
 
 ## Qué hay preparado
 
-- Web adaptable a móvil y escritorio, con portada ilustrada, escenario del belén y búsqueda por nombre.
+- Web de recorrido visual (scrollytelling) para móvil y escritorio: portada con zoom al portal, cinco capítulos con carrusel anclado (`chapters` en `web/content.js`), travelling por el belén completo y búsqueda de láminas por nombre. `web/story.js` monta los capítulos; el movimiento es CSS (`--p` en `styles.css`) con alternativa en JS para navegadores sin scroll-driven animations (se puede forzar con `?js`).
+- La página usa copias WebP ligeras (`web/assets/figuras/web/` y `*.webp`); los PNG originales quedan para ampliar y descargar. Al cambiar una figura, regenera su copia: `cwebp -q 82 -alpha_q 90 -resize 0 960 figura.png -o figuras/web/figura.webp`.
 - Las 17 fichas del reparto, preparadas para ampliar su ilustración y descargar su lámina.
 - Acceso al belén completo y al PDF resumen de dos páginas cuando se incorporen.
 - Instrucciones completas para continuar en [AGENTS.md](AGENTS.md).
 
-Las ilustraciones individuales y los PDF **todavía no están generados**. La web lo indica y no muestra descargas ficticias. El portal de la portada es una ilustración de ambientación generada con la herramienta integrada de imágenes; no representa el resultado final del equipo.
+Las ilustraciones individuales y los PDF están generados como **borradores locales en `output/`, pendientes de corregir las poses frontales y revisar**. Todavía no están incorporados a la web. Consulta [el estado de continuación](ESTADO-PARA-CONTINUAR.md). La web lo indica y no muestra descargas ficticias. El portal de la portada es una ilustración de ambientación generada con la herramienta integrada de imágenes; no representa el resultado final del equipo.
 
 ## Incorporar las ilustraciones
 

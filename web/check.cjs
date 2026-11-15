@@ -10,7 +10,7 @@ class Element {
   setAttribute(name, value) { this[name] = value; }
   removeAttribute(name) { delete this[name]; }
   addEventListener(name, handler) { this.handlers[name] = handler; }
-  querySelector(selector) { return get(selector); }
+  querySelector(selector) { return this === get('#scene-lightbox') ? get('#scene-lightbox ' + selector) : get(selector); }
   showModal() { this.open = true; }
   close() { this.open = false; }
 }
@@ -20,16 +20,21 @@ function get(selector) {
   return elements.get(selector);
 }
 const context = vm.createContext({ window: {}, document: {
-  querySelector: get, getElementById: id => get(`#${id}`), createElement: () => new Element()
+  querySelector: get, querySelectorAll: () => [], getElementById: id => get(`#${id}`), createElement: () => new Element()
 } });
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'content.js'), 'utf8'), context);
 const content = context.window.belenContent;
 assert.equal(content.people.length, 17);
 assert.equal(new Set(content.people.map(p => p.id)).size, 17);
-for (const file of [content.scene, content.collection, ...content.people.flatMap(p => [p.image, p.sheet])].filter(Boolean)) {
+for (const file of [content.scene, content.collection, ...content.people.flatMap(p => [p.image, p.sheet, p.realisticImage, p.realisticSheet])].filter(Boolean)) {
   assert(!file.includes('..') && file.startsWith('assets/'), `Ruta fuera de assets: ${file}`);
   assert(fs.existsSync(path.join(__dirname, file)), `Falta ${file}`);
 }
+const toWebp = file => file.replace('figuras/', 'figuras/web/').replace('.png', '.webp');
+for (const person of [...content.people, content.extras.nino]) assert(fs.existsSync(path.join(__dirname, toWebp(person.image))), `Falta WebP de ${person.id}`);
+// Cada persona sale exactamente una vez en los capítulos del recorrido.
+const toured = content.chapters.flatMap(chapter => chapter.people).filter(id => !content.extras[id]);
+assert.equal([...toured].sort().join(), content.people.map(p => p.id).sort().join());
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8'), context);
 assert.equal(get('#people').children.length, 17);
 get('#search').value = '  ivónne  ';
@@ -49,6 +54,17 @@ assert.equal(card.children[3].href, 'assets/example.pdf');
 card.children[0].children[0].handlers.click();
 assert.equal(get('#portrait').open, true);
 assert.equal(get('#portrait-download').href, 'assets/example.pdf');
+content.people[3].realisticImage = 'assets/realistic.png';
+content.people[3].realisticSheet = 'assets/realistic.pdf';
+card.children[0].children[0].handlers.click();
+assert.equal(get('#portrait-styles').hidden, false);
+get('#style-realistic').handlers.click();
+assert.equal(get('#portrait-image').src, 'assets/realistic.png');
+assert.equal(get('#portrait-download').href, 'assets/realistic.pdf');
+assert.equal(get('#style-realistic')['aria-pressed'], 'true');
+get('#style-figure').handlers.click();
+assert.equal(get('#portrait-image').src, 'assets/example.png');
+assert.equal(get('#portrait-download').href, 'assets/example.pdf');
 get('.close').handlers.click();
 assert.equal(get('#portrait').open, false);
 assert(fs.existsSync(path.join(__dirname, 'assets/background.png')));
@@ -58,5 +74,6 @@ for (const asset of ['ate-logo.png', 'ate-logo-completo.png', 'og-image.png']) {
   assert(html.includes(`assets/${asset}`));
 }
 assert(html.includes('property="og:image"'));
+assert(html.includes('src="story.js"'));
 assert(html.includes('name="twitter:card" content="summary_large_image"'));
 console.log('OK: 17 fichas, rutas, búsqueda, estados pendientes, descarga y diálogo.');
