@@ -69,11 +69,13 @@ get('.close').handlers.click();
 assert.equal(get('#portrait').open, false);
 assert(fs.existsSync(path.join(__dirname, 'assets/background.png')));
 const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-for (const asset of ['ate-logo.png', 'ate-logo-completo.png', 'og-image.png']) {
+for (const asset of ['ate-logo.png', 'ate-logo-completo.png', 'og-image.jpg']) {
   assert(fs.existsSync(path.join(__dirname, 'assets', asset)));
   assert(html.includes(`assets/${asset}`));
 }
 assert(html.includes('property="og:image"'));
+// WhatsApp no muestra la vista previa si la imagen pesa demasiado.
+assert(fs.statSync(path.join(__dirname, 'assets/og-image.jpg')).size < 300 * 1024, 'og-image.jpg supera 300 KB');
 assert(html.includes('src="story.js"'));
 assert(html.includes('name="twitter:card" content="summary_large_image"'));
 console.log('OK: 17 fichas, rutas, búsqueda, estados pendientes, descarga y diálogo.');

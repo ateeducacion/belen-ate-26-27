@@ -3,7 +3,7 @@
 - `ate-logo.png`: símbolo oficial del Área de Tecnología Educativa, descargado sin modificaciones de https://www3.gobiernodecanarias.org/medusa/ecoescuela/ate/files/2021/04/ate.png (enlazado desde la portada oficial de ATE). El PNG ya tiene transparencia. En la cabecera se muestra blanco mediante filtro CSS, conservando el contorno, la transparencia y las proporciones.
 - `ate-logo-completo.png`: versión oficial con texto e islas Canarias, sin modificaciones y con sus colores originales, en el pie. Fuente: https://www3.gobiernodecanarias.org/medusa/ecoescuela/ate/files/2017/05/ate2-300x1711.png, enlazada en la página oficial Contactar. Dimensiones originales: 300 × 171.
 - `background.png`: ambientación generada con ImageGen integrado; prompt en `BACKGROUND-PROMPT.md`.
-- `og-image.png`: tarjeta para compartir, generada con ImageGen integrado usando `background.png` como referencia. Revisada visualmente: saludo completo, sin fotografías de personas. Dimensiones 1732 × 908.
+- `og-image.png`: tarjeta para compartir, generada con ImageGen integrado usando `background.png` como referencia. Revisada visualmente: saludo completo, sin fotografías de personas. Dimensiones 1732 × 908. Es el original; las etiquetas `og:image` apuntan a `og-image.jpg` (1200 × 629, menos de 300 KB), porque WhatsApp no muestra la vista previa con imágenes pesadas. Regenerar con `sips -s format jpeg -s formatOptions 70 --resampleWidth 1200 og-image.png --out og-image.jpg`.
 
 Prompt de la tarjeta:
 
