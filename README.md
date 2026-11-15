@@ -64,7 +64,7 @@ Antes del primer despliegue, selecciona **Settings → Pages → Build and deplo
 
 URL prevista: https://ateeducacion.github.io/belen-ate-26-27/
 
-La portada incluye metadatos Open Graph y Twitter con `web/assets/og-image.png` para las vistas previas en redes. Si cambias de repositorio o dominio, actualiza las URL absolutas de `canonical`, `og:url`, `og:image` y `twitter:image` en `web/index.html`. Las redes pueden conservar en caché una vista previa anterior.
+La portada incluye metadatos Open Graph y Twitter con `web/assets/og-image.jpg` (JPEG ligero generado desde `og-image.png`; debe pesar menos de 300 KB para que WhatsApp la muestre) para las vistas previas en redes. Si cambias de repositorio o dominio, actualiza las URL absolutas de `canonical`, `og:url`, `og:image` y `twitter:image` en `web/index.html`. Las redes pueden conservar en caché una vista previa anterior.
 
 La cabecera muestra el símbolo oficial aTe en blanco y con fondo transparente mediante CSS. El pie incluye el logo completo con las islas en sus colores originales. Sus fuentes y la imagen para redes están documentadas en [ASSETS.md](web/assets/ASSETS.md).
 

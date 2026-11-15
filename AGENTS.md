@@ -1,5 +1,18 @@
 # Instrucciones del proyecto: Belén ATE
 
+> **Estado vigente:** lee primero [RELEVO-ACTUAL.md](RELEVO-ACTUAL.md); prevalece sobre los apartados históricos de este archivo.
+
+## Últimas decisiones — 14-11-2026 (prevalecen sobre el historial)
+
+- **Todas las figuras deben mirar de frente**: cuerpo, rostro y ojos hacia el espectador, cámara a la altura de los ojos. Sin perfil ni tres cuartos, sin cabeza inclinada ni mirada hacia el objeto. Corregir expresamente **Berta y Ernesto**, que quedaron de lado, y **Humberto**, que mira hacia abajo. Revisar también las otras 14 figuras.
+- Mantener parecido, edad, gafas, peinado, vestuario, objeto y estilo de miniatura. Usar la figura actual como referencia de edición y el recorte facial confirmado. No regenerar el reparto entero por defecto.
+- El prompt anterior permitía hasta 10 grados de giro: esa concesión queda anulada. Añadir: «Strictly straight-on front view, shoulders and hips facing camera, upright head, both eyes looking directly forward at eye level; no profile, no three-quarter angle, no downward gaze».
+- Ofrecer **Realista / Figurita** (nombre amable para la versión compacta o «enanito»). Hay una prueba de ambos estilos para Francis; no están generadas ambas versiones de las 17 personas. La figurita sigue siendo el estilo del belén.
+- Preferencia del usuario: usar el modelo más económico que ha seleccionado. No cambiar a otro más caro ni lanzar generaciones adicionales solo para guardar el estado. El agente no puede cambiar por sí mismo el modelo de esta conversación.
+- El usuario ha pedido guardar todo para continuar. **Las correcciones frontales están pendientes; no afirmar que ya están hechas.** No publicar estos borradores como definitivos.
+
+Lee [ESTADO-PARA-CONTINUAR.md](ESTADO-PARA-CONTINUAR.md) para los archivos existentes y el siguiente paso exacto.
+
 ## Reglas de trabajo
 
 - Mantén esta web estática y sin dependencias salvo necesidad demostrada. Lee `README.md` antes de editar.
@@ -7,19 +20,42 @@
 - Usa Context7 para consultar documentación actual de bibliotecas, SDK, APIs o CLI cuando vayas a utilizarlos.
 - Sirve y publica únicamente `web/`. `references/` contiene fotografías personales y metadatos privados: nunca los copies al sitio ni los incluyas en un despliegue.
 - El despliegue preparado para GitHub Pages está en `.github/workflows/pages.yml`: publica `web/` desde `main`. Las URL sociales apuntan a `https://ateeducacion.github.io/belen-ate-26-27/`; actualízalas si cambia el destino. Mantén el logo oficial sin deformarlo y consulta `web/assets/ASSETS.md`.
-- No publiques automáticamente este proyecto ni subas referencias privadas al repositorio. El usuario ha pedido preparar los archivos en esta carpeta.
+- Publicación: el sitio está en GitHub Pages (repo `ateeducacion/belen-ate-26-27`, https://ateeducacion.github.io/belen-ate-26-27/). El workflow despliega `web/` en cada push a `main`. Publica solo cuando el usuario lo pida; cuando lo pide, quiere el push directo a `main`. Sube únicamente `web/`, `README.md` y código necesario: nunca `references/`, `output/`, `herramientas/` ni los documentos de relevo (mencionan material privado). Sin líneas de atribución de IA en commits ni PR.
 - Verifica los cambios con `node web/check.cjs`. Comprueba visualmente móvil y escritorio cuando el navegador esté disponible.
-- El reparto sigue siendo provisional. Mantén la diferencia Fran / Francis y confirma Cristian / Christian y la referencia de Leo antes de cerrar las ilustraciones.
+- El reparto y las referencias están confirmados en `INSTRUCCIONES-SIGUIENTES.md`. Mantén Fran Mateos y Francis separados; la grafía es Cristian.
 
-## Web ya preparada
+## Web: cómo está hecha y cómo tocarla (15-11-2026)
 
-`web/index.html`, `styles.css`, `content.js` y `app.js` forman el sitio. La portada dice «ATE les desea Feliz Navidad». Contiene escenario, búsqueda por nombre, 17 fichas, ampliación de ilustraciones mediante diálogo y enlaces de descarga cuando hay archivos disponibles.
+Sitio estático sin dependencias ni build. Es un recorrido de scroll: portada con zoom al portal → «Este año el belén somos nosotros» → cinco capítulos con carrusel → travelling por el belén completo → felicitación → «Tu lámina» (búsqueda, fichas, descargas).
 
-`web/assets/background.png` es una ilustración generada de un portal vacío para ambientar el sitio. NO es el belén final del equipo. El prompt de generación está en `web/assets/BACKGROUND-PROMPT.md`.
+**Archivos**
 
-Para incorporar los entregables, guarda los archivos finales en `web/assets/` y asigna sus rutas relativas en `web/content.js`: `scene` para el belén 16:9, `collection` para el PDF de dos páginas, `image` y `sheet` para la ilustración y el PDF de cada persona. Deja `null` donde el material no esté listo; no añadas enlaces a archivos inexistentes.
+- `web/content.js`: único sitio donde se editan los datos. `people` (17 fichas: `image`, `sheet`, versión realista), `scene`, `collection`, `chapters` (qué personas salen en cada capítulo, título, frase, colores `bg`/`accent`) y `extras` (el Niño, que no tiene lámina). Deja `null` donde falte material; no enlaces archivos inexistentes.
+- `web/story.js`: monta el desfile y los capítulos a partir de `chapters`. Incluye la alternativa en JS para navegadores sin scroll-driven animations (se fuerza con `?js` en la URL).
+- `web/app.js`: fichas, búsqueda, diálogos y descargas. `thumb(person)` convierte `figuras/x.png` en `figuras/web/x.webp`.
+- `web/styles.css`: todo el movimiento sale de la propiedad `--p` (0→1) de cada elemento con `data-p` (`view` = mientras cruza la pantalla, `pin` = mientras está anclado). Con `prefers-reduced-motion` todo queda estático.
+- `web/check.cjs`: comprobación obligatoria (`node web/check.cjs`).
 
-La profundidad actual es un efecto CSS muy ligero sobre la escena terminada, desactivado con movimiento reducido. No hay modelos 3D reales. La vía más pequeña para continuar es componer personajes PNG en capas 2D/2.5D. Solo prepara modelos 3D si el usuario confirma esa ampliación; las fotografías por sí solas no proporcionan una geometría fiel.
+**Decisiones del usuario sobre la experiencia (no deshacer)**
+
+- Tiene que ser espectacular en móvil, pero sin marear: los carruseles avanzan **a pasos**, una figura cada vez, con pausa en la primera y la última. No volver al desplazamiento continuo.
+- Las figuras de los capítulos **no son pulsables ni llevan «Ver lámina»**: ahí solo se sigue bajando. Las láminas se abren únicamente en «Tu lámina».
+- Cada persona aparece exactamente una vez en `chapters` (lo verifica `check.cjs`).
+- El Niño es una placa tipo Arduino graciosa (genérica, sin logos ni marcas), a petición del usuario: «Niño tecnológico» en `extras.nino`. Si se regenera, mantener esa idea y rehacer también su WebP y el belén panorámico para que coincidan.
+
+**Imágenes**
+
+- La página carga copias WebP ligeras; los PNG y PDF originales se quedan para ampliar y descargar. Al cambiar o añadir una figura, regenera su copia: `cwebp -q 82 -alpha_q 90 -resize 0 960 web/assets/figuras/x.png -o web/assets/figuras/web/x.webp`. Lo mismo para `background.webp`, `belen-ate-16-9.webp` (2560 de ancho) y las dos estampas.
+- Imagen para compartir: `web/assets/og-image.jpg`, 1200 × 629 y **menos de 300 KB** (WhatsApp no muestra la vista previa con imágenes pesadas). Se genera desde `og-image.png`: `sips -s format jpeg -s formatOptions 70 --resampleWidth 1200 og-image.png --out og-image.jpg`. Las URL de `og:image`, `twitter:image`, `og:url` y `canonical` en `index.html` son absolutas. WhatsApp guarda en caché: para probar, comparte la URL con `?v=2`.
+- `web/assets/background.png` es un portal vacío de ambiente, no el belén del equipo (prompt en `web/assets/BACKGROUND-PROMPT.md`). El belén panorámico lo compone `herramientas/crear-entregables.swift` desde `output/figuras/`.
+
+**Verificación antes de publicar**
+
+1. `node web/check.cjs`.
+2. `python3 -m http.server 8765 --directory web` y revisar a 390 × 844 y 1440 × 810, también con `?js`. Comprobar que la última figura de cada capítulo queda centrada y que no hay scroll horizontal.
+3. Tras el push, confirmar que el despliegue de Pages termina bien (`gh run list -R ateeducacion/belen-ate-26-27`).
+
+No hay modelos 3D reales; la prueba 360° de un personaje sigue sin resolver (ver `output/README.md`).
 
 ## Contexto de relevo y producción pendiente
 
@@ -27,6 +63,12 @@ Continúa este proyecto en `/Users/ernesto/Dropbox/Trabajo/ate/belen`.
 Haz el trabajo hasta producir los archivos finales, aprovechando las referencias ya descargadas. Habla en español. No vuelvas a empezar la configuración de Google ni pidas al usuario que repita lo que ya está hecho.
 
 ## Objetivo y decisiones del usuario
+
+### Estilo confirmado por el usuario
+
+El usuario ha adjuntado las dos láminas originales y confirmado que quiere **esas figuritas de belén con apariencia de miniaturas 3D**, no personas con proporciones realistas vestidas con túnica. Referencias locales privadas: `references/style-sheet-a.png` y `references/style-sheet-b.png`. Usa cabeza grande y reconocible, cuerpo compacto (unas 3–4 cabezas de alto), botas/manos robustas, peana circular de terracota, ropa esculpida y acabado mate pintado a mano. Conserva el vestuario y atributos de esas láminas, mejorando el rostro con las fotografías. La prueba de adulto de proporciones naturales en `output/video/pilot-figure-draft.png` queda descartada como dirección visual.
+
+Francis está confirmado por las referencias posteriores de `INSTRUCCIONES-SIGUIENTES.md`. Su figura debe seguir la celda inferior izquierda de la segunda lámina: músico con timple, túnica ocre corta, mangas crema, manto rojizo, botas y peana. No volver a pedir esa confirmación. La prueba 360° real debe partir de la figurita correcta, no del adulto realista anterior.
 
 Queremos un belén ilustrado con los compañeros de ATE, reconocibles por sus rostros. Los primeros diseños del chat anterior tenían poco parecido. La prioridad es mejorar la fidelidad con fotos reales de referencia.
 
@@ -137,3 +179,7 @@ IMPORTANTE: Photos Picker permite seleccionar archivos y descargarlos; no permit
 7. Guarda en `output/` con subcarpetas claras (`laminas`, `resumen`, `belen`, `video`). Incluye un índice y las instrucciones mínimas de uso de las piezas del vídeo. Verifica visualmente todas las páginas y cuenta las 17 personas, sin duplicados ni omisiones.
 
 No hay todavía ilustraciones generadas, PDFs finales ni vídeo preparado. No informes de ellos como terminados. Si hay un bloqueo, conserva lo avanzado y describe el paso exacto que falta. El objetivo principal es completar el belén con mejor parecido, no seguir dedicando turnos a configurar OAuth.
+
+Última corrección del usuario: **Alfredo también debe mirar directamente al frente**, con cuerpo y rostro frontales, cabeza erguida y ojos hacia el espectador. Incluirlo junto con Berta, Ernesto y Humberto en las correcciones explícitas pendientes.
+
+Última indicación: **Santi también debe mirar directamente al frente**. Para Ivonne, elegir otra fotografía confirmada en la que salga más favorecida, nítida y frontal, conservando su parecido y edad. Revisar los recortes disponibles antes de buscar más. Ambas tareas quedan pendientes de edición.

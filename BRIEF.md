@@ -32,7 +32,7 @@
 Niño Jesús adicional; portal y animales aparte.
 
 ## Referencias reunidas
-- `references/IMG-20250723-WA0027.jpg`: descargada de Google Photos, 2048 × 1536, 23 de julio de 2025. El panel de Photos muestra las etiquetas Ernesto Serrano, Elisa Piñero ATE e Ivonne ATE. No se ha asignado cada etiqueta a una posición de la imagen.
+Tabla por persona, con archivo, etiquetas y qué falta confirmar: `references/REFERENCIAS.md`. Las 26 fotos nuevas, obtenidas por etiqueta de Google Fotos, están en `references/etiquetadas/`. La cuenta con las etiquetas es la de Chrome «Browser 2», no el perfil de Educación.
 
 ## Pendiente
 Ya están descargadas 13 fotos y un vídeo en `references/originals/`, con manifiesto en `references/selection.json`. Falta confirmar las correspondencias y completar las referencias individuales de las 17 personas. Todavía no se han generado las ilustraciones ni los PDF. El relevo completo está en `PROMPT-PARA-OTRA-IA.md`.

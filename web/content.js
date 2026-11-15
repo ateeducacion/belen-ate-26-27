@@ -10,7 +10,7 @@ window.belenContent = {
     { id: 'pastores', title: 'Los pastores', line: 'Los primeros en llegar al portal.', bg: '#2c4420', accent: '#f0d27a', people: ['berta', 'fran', 'humberto', 'celeste', 'ernesto'] },
     { id: 'oficios', title: 'Los oficios', line: 'Las manos que hacen que todo funcione.', bg: '#64202a', accent: '#ffd9a0', people: ['leo', 'roser', 'carlos', 'francis', 'elisa'] }
   ],
-  extras: { nino: { id: 'nino', name: 'El Niño', role: 'Niño Jesús · la razón de todo', image: 'assets/figuras/nino.png' } },
+  extras: { nino: { id: 'nino', name: 'El Niño', role: 'Niño tecnológico · una luz de ilusión', image: 'assets/figuras/nino.png' } },
   people: [
     { id: 'alfredo', name: 'Alfredo', role: 'Baltasar · el regalo de la mirra', image: 'assets/figuras/alfredo.png', sheet: 'assets/laminas/alfredo-a4.pdf', realisticImage: 'assets/figuras/realistas/alfredo.png', realisticSheet: 'assets/laminas/alfredo-realista-a4.pdf' },
     { id: 'leo', name: 'Leo', role: 'Tejedora · historias entre hilos', image: 'assets/figuras/leo.png', sheet: 'assets/laminas/leo-a4.pdf', realisticImage: 'assets/figuras/realistas/leo.png', realisticSheet: 'assets/laminas/leo-realista-a4.pdf' },
