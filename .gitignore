@@ -7,3 +7,13 @@ output/
 tmp/
 # Capturas y registros de las pruebas en navegador.
 .playwright-mcp/
+# Prompts, instrucciones y documentos de relevo: mencionan material privado y no se publican.
+AGENTS.md
+BRIEF.md
+ESTADO-PARA-CONTINUAR.md
+INSTRUCCIONES-SIGUIENTES.md
+RELEVO-ACTUAL.md
+PROMPT-*.md
+web/assets/BACKGROUND-PROMPT.md
+# Scripts locales de producción.
+herramientas/

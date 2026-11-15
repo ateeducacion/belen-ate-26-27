@@ -18,9 +18,9 @@ Abre http://localhost:8000. También puedes abrir `web/index.html` directamente.
 - La página usa copias WebP ligeras (`web/assets/figuras/web/` y `*.webp`); los PNG originales quedan para ampliar y descargar. Al cambiar una figura, regenera su copia: `cwebp -q 82 -alpha_q 90 -resize 0 960 figura.png -o figuras/web/figura.webp`.
 - Las 17 fichas del reparto, preparadas para ampliar su ilustración y descargar su lámina.
 - Acceso al belén completo y al PDF resumen de dos páginas cuando se incorporen.
-- Instrucciones completas para continuar en [AGENTS.md](AGENTS.md).
+- Las instrucciones de trabajo, los prompts y los documentos de relevo son locales: no se publican en el repositorio.
 
-Las ilustraciones individuales y los PDF están generados como **borradores locales en `output/`, pendientes de corregir las poses frontales y revisar**. Todavía no están incorporados a la web. Consulta [el estado de continuación](ESTADO-PARA-CONTINUAR.md). La web lo indica y no muestra descargas ficticias. El portal de la portada es una ilustración de ambientación generada con la herramienta integrada de imágenes; no representa el resultado final del equipo.
+Las ilustraciones individuales y los PDF están generados como **borradores locales en `output/`, pendientes de corregir las poses frontales y revisar**. Todavía no están incorporados a la web. La web lo indica y no muestra descargas ficticias. El portal de la portada es una ilustración de ambientación generada con la herramienta integrada de imágenes; no representa el resultado final del equipo.
 
 ## Incorporar las ilustraciones
 
@@ -45,9 +45,9 @@ Sí, pero cada personaje necesitaría un modelo tridimensional preparado y revis
 ## Estructura y privacidad
 
 ```text
-AGENTS.md                     Instrucciones para continuar con otra IA
-BRIEF.md                      Resumen del reparto y decisiones
-PROMPT-PARA-OTRA-IA.md         Relevo anterior (AGENTS.md es la referencia actual)
+AGENTS.md, *.md de relevo     Instrucciones y prompts locales (ignorados por Git)
+herramientas/                 Scripts locales de composición (ignorados por Git)
+output/                       Originales de producción (ignorados por Git)
 references/originals/         13 fotos y un vídeo privados de referencia
 references/selection.json     Metadatos privados de Photos Picker
 download-references.sh        Descarga ya utilizada por el usuario
