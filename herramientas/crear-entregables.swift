@@ -6,7 +6,7 @@ struct Production: Decodable { let records: [Person] }
 let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 let data = try Data(contentsOf: root.appendingPathComponent("output/production.json"))
 let persons = try JSONDecoder().decode(Production.self, from: data).records
-precondition(persons.count == 17 && Set(persons.map { $0.id }).count == 17)
+precondition(persons.count == 18 && Set(persons.map { $0.id }).count == 18)
 let cream = NSColor(calibratedRed: 0.98, green: 0.97, blue: 0.93, alpha: 1)
 let green = NSColor(calibratedRed: 0.07, green: 0.18, blue: 0.16, alpha: 1)
 let gold = NSColor(calibratedRed: 0.7, green: 0.55, blue: 0.31, alpha: 1)
@@ -64,8 +64,8 @@ for n in 0..<2 {
     page(summary) {
         border()
         text("BELÉN ATE", 779, 29)
-        text("\(n+1) · \(n == 0 ? "A1–A9" : "B1–B8 y el Niño")", 754, 13, "Times-Italic")
-        let group = n == 0 ? Array(persons.prefix(9)) : Array(persons.suffix(8))
+        text("\(n+1) · \(n == 0 ? "A1–A9" : "B1–B9")", 754, 13, "Times-Italic")
+        let group = n == 0 ? Array(persons.prefix(9)) : Array(persons.suffix(9))
         for (i, person) in group.enumerated() {
             let col = i%3, row = i/3
             let x = CGFloat(col)*173+38, y = CGFloat(2-row)*218+87
@@ -74,12 +74,6 @@ for n in 0..<2 {
             NSGraphicsContext.current!.cgContext.translateBy(x:x,y:0)
             text(person.name,y+24,15,"Times-Bold",169)
             text(person.roleEs,y+9,10,"Times-Italic",169)
-            NSGraphicsContext.restoreGraphicsState()
-        }
-        if n == 1 {
-            fit(image("output/figuras/nino.png"), CGRect(x:390,y:132,width:157,height:155))
-            NSGraphicsContext.saveGraphicsState(); NSGraphicsContext.current!.cgContext.translateBy(x:384,y:0)
-            text("Niño tecnológico",111,15,"Times-Bold",169);text("Figura adicional",96,10,"Times-Italic",169)
             NSGraphicsContext.restoreGraphicsState()
         }
         text("ATE les desea Feliz Navidad", 47, 12, "Times-Italic")
@@ -99,7 +93,7 @@ func bitmap(_ path: String, _ width: Int, _ height: Int, _ draw: () -> Void) {
 let width: CGFloat = 3840, height: CGFloat = 2160
 let positions: [(String, CGFloat, CGFloat, CGFloat)] = [
     ("luz",2450,1120,460),("yanira",3150,1150,460),
-    ("leo",780,420,400),("roser",1050,390,420),("carlos",1320,380,420),("elisa",1570,390,410),
+    ("rosy",480,410,390),("leo",780,420,400),("roser",1050,390,420),("carlos",1320,380,420),("elisa",1570,390,410),
     ("ivonne",2570,445,560),("cristian",3130,445,560),
     ("humberto",3330,330,500),("celeste",3500,240,500),("berta",3240,120,560),
     ("fran",2080,80,530),("ernesto",3660,70,560),("francis",2440,75,540),

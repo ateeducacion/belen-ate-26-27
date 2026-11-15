@@ -8,7 +8,7 @@ window.belenContent = {
     { id: 'reyes', title: 'Los Reyes', line: 'Vienen de lejos y nunca con las manos vacías.', bg: '#451a4f', accent: '#f5b84b', people: ['alfredo', 'luis', 'santi'] },
     { id: 'angeles', title: 'Los ángeles', line: 'Las buenas noticias siempre llegan desde arriba.', bg: '#0e4a50', accent: '#ffe9a8', people: ['luz', 'yanira'] },
     { id: 'pastores', title: 'Los pastores', line: 'Los primeros en llegar al portal.', bg: '#2c4420', accent: '#f0d27a', people: ['berta', 'fran', 'humberto', 'celeste', 'ernesto'] },
-    { id: 'oficios', title: 'Los oficios', line: 'Las manos que hacen que todo funcione.', bg: '#64202a', accent: '#ffd9a0', people: ['leo', 'roser', 'carlos', 'francis', 'elisa'] }
+    { id: 'oficios', title: 'Los oficios', line: 'Las manos que hacen que todo funcione.', bg: '#64202a', accent: '#ffd9a0', people: ['leo', 'roser', 'rosy', 'carlos', 'francis', 'elisa'] }
   ],
   extras: { nino: { id: 'nino', name: 'El Niño', role: 'Niño tecnológico · una luz de ilusión', image: 'assets/figuras/nino.png' } },
   people: [
@@ -28,6 +28,7 @@ window.belenContent = {
     { id: 'yanira', name: 'Yanira', role: 'Ángel · la estrella que nos guía', image: 'assets/figuras/yanira.png', sheet: 'assets/laminas/yanira-a4.pdf', realisticImage: 'assets/figuras/realistas/yanira.png', realisticSheet: 'assets/laminas/yanira-realista-a4.pdf' },
     { id: 'carlos', name: 'Carlos', role: 'Carpintero · manos que construyen', image: 'assets/figuras/carlos.png', sheet: 'assets/laminas/carlos-a4.pdf', realisticImage: 'assets/figuras/realistas/carlos.png', realisticSheet: 'assets/laminas/carlos-realista-a4.pdf' },
     { id: 'francis', name: 'Francis', role: 'Músico · Navidad al son del timple', image: 'assets/figuras/francis.png', sheet: 'assets/laminas/francis-a4.pdf', realisticImage: 'assets/figuras/realistas/francis.png', realisticSheet: 'assets/laminas/francis-realista-a4.pdf' },
+    { id: 'rosy', name: 'Rosy', role: 'Panadera · pan para compartir', image: 'assets/figuras/rosy.png', sheet: 'assets/laminas/rosy-a4.pdf', realisticImage: 'assets/figuras/realistas/rosy.png', realisticSheet: 'assets/laminas/rosy-realista-a4.pdf' },
     { id: 'elisa', name: 'Elisa', role: 'Alfarera · el cariño toma forma', image: 'assets/figuras/elisa.png', sheet: 'assets/laminas/elisa-a4.pdf', realisticImage: 'assets/figuras/realistas/elisa.png', realisticSheet: 'assets/laminas/elisa-realista-a4.pdf' }
   ]
 };
