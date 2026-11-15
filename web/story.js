@@ -64,7 +64,9 @@ content.chapters.forEach((chapter, index) => {
       card.addEventListener('focus', () => {
         if (!card.matches(':focus-visible')) return;
         const box = reel.getBoundingClientRect();
-        scrollTo({ top: scrollY + box.top + (i / Math.max(members.length - 1, 1)) * (box.height - innerHeight) });
+        const steps = members.length - 1;
+        const hold = 50 / (steps * 65 + 100); // misma pausa inicial y final que .reel en styles.css
+        scrollTo({ top: scrollY + box.top + (hold + (i / Math.max(steps, 1)) * (1 - 2 * hold)) * (box.height - innerHeight) });
       });
     }
     track.append(card);

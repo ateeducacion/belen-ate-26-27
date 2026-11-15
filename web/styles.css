@@ -97,21 +97,23 @@ h1 span { display: block; margin-bottom: .5em; font: italic 400 clamp(1.5rem, 6v
 .ghost { position: absolute; inset: 0; display: grid; place-content: center; font-size: 90vw; font-weight: 900; line-height: 1; letter-spacing: -.08em; color: #fff; opacity: .07;
   transform: translateY(calc((var(--p) - .5) * 45svh)); }
 
-.reel { height: calc((var(--n) * 65 + 60) * 1svh); --w: 78vw; }
-.reel .stage { --pos: calc(var(--p) * (var(--n) - 1)); } /* figura centrada: 0, 1, 2… */
+/* Recorrido anclado: 50svh de pausa en la primera figura, 65svh por cada cambio y 50svh en la última,
+   para que ni la primera ni la última pasen de largo. story.js usa los mismos números al enfocar. */
+.reel { height: calc(((var(--n) - 1) * 65 + 200) * 1svh); --w: 78vw; --hold: calc(50 / ((var(--n) - 1) * 65 + 100)); }
+.reel .stage { --run: clamp(0, (var(--p) - var(--hold)) / (1 - 2 * var(--hold)), 1); --pos: calc(var(--run) * (var(--n) - 1)); } /* figura centrada: 0, 1, 2… */
 .reel-head { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; justify-content: space-between; gap: 12px; padding: 78px 6vw 0; font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
 .reel-head::after { content: ""; position: absolute; inset: auto 6vw -10px; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(var(--p)); }
 .track { position: absolute; inset: 0 auto 0 0; display: flex; padding-inline: calc((100vw - var(--w)) / 2); will-change: transform;
   transform: translateX(calc(var(--pos) * var(--w) * -1)); }
 .card { --d: calc(var(--pos) - var(--i)); --d2: min(var(--d) * var(--d), 1); /* distancia al centro del carrusel */
-  flex: 0 0 var(--w); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2svh; padding: 16svh 0 5svh;
+  flex: 0 0 var(--w); min-width: 0; /* sin esto una imagen ancha (el Niño) ensancha su hueco y descoloca a las siguientes */ position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2svh; padding: 16svh 0 5svh;
   border: 0; background: none; color: inherit; text-align: center; cursor: pointer; }
 div.card { cursor: default; }
 .card::before { content: ""; position: absolute; left: 50%; top: 44%; width: min(var(--w), 70svh); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, var(--accent), #0000); opacity: calc((1 - var(--d2)) * .32); }
 .ghost-name { position: absolute; top: 19svh; left: 50%; white-space: nowrap; font-size: min(calc(var(--w) * .46), 30svh); font-weight: 900; line-height: 1; letter-spacing: -.05em; text-transform: uppercase;
   color: transparent; -webkit-text-stroke: 1.5px var(--accent); opacity: calc((1 - var(--d2)) * .55);
   transform: translateX(calc(-50% - var(--d) * 70vw)); }
-.card img { position: relative; flex: 0 1 auto; min-height: 0; height: 56svh; width: auto; max-width: none; object-fit: contain;
+.card img { position: relative; flex: 0 1 auto; min-height: 0; height: 56svh; width: auto; max-width: 100%; object-fit: contain;
   transform: translateY(calc(var(--d2) * 5svh)) rotate(calc(var(--d) * 5deg)) scale(calc(1 - var(--d2) * .32)); }
 .cap { position: relative; display: grid; gap: .4svh; justify-items: center; opacity: calc(1 - var(--d2) * 2.5); transform: translateY(calc(var(--d2) * 4svh)); }
 .cap small { font-size: .72rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
@@ -187,11 +189,11 @@ dialog .eyebrow { margin-top: 16px; color: var(--clay); }
   .people-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; }
 }
 
-/* Con ratón o trackpad el carrusel avanza paso a paso: la posición salta a la figura más cercana
-   y una transición breve hace el cambio, en vez de moverse de forma continua con la rueda. */
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+/* El carrusel avanza paso a paso: la posición salta a la figura más cercana y una transición breve
+   hace el cambio, así cada figura se queda quieta y legible en vez de moverse con cada gesto. */
+@media (prefers-reduced-motion: no-preference) {
   @supports (width: round(1px, 1px)) {
-    .reel .stage { --pos: round(var(--p) * (var(--n) - 1), 1); }
+    .reel .stage { --pos: round(var(--run) * (var(--n) - 1), 1); }
     .track, .card img, .cap, .ghost-name, .card::before { transition: transform .7s cubic-bezier(.22, .8, .2, 1), opacity .7s; }
     .card img { transform: translateY(calc(var(--d2) * 3svh)) scale(calc(1 - var(--d2) * .32)); }
   }
