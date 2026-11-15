@@ -107,8 +107,7 @@ h1 span { display: block; margin-bottom: .5em; font: italic 400 clamp(1.5rem, 6v
   transform: translateX(calc(var(--pos) * var(--w) * -1)); }
 .card { --d: calc(var(--pos) - var(--i)); --d2: min(var(--d) * var(--d), 1); /* distancia al centro del carrusel */
   flex: 0 0 var(--w); min-width: 0; /* sin esto una imagen ancha (el Niño) ensancha su hueco y descoloca a las siguientes */ position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2svh; padding: 16svh 0 5svh;
-  border: 0; background: none; color: inherit; text-align: center; cursor: pointer; }
-div.card { cursor: default; }
+  text-align: center; }
 .card::before { content: ""; position: absolute; left: 50%; top: 44%; width: min(var(--w), 70svh); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, var(--accent), #0000); opacity: calc((1 - var(--d2)) * .32); }
 .ghost-name { position: absolute; top: 19svh; left: 50%; white-space: nowrap; font-size: min(calc(var(--w) * .46), 30svh); font-weight: 900; line-height: 1; letter-spacing: -.05em; text-transform: uppercase;
   color: transparent; -webkit-text-stroke: 1.5px var(--accent); opacity: calc((1 - var(--d2)) * .55);
@@ -119,7 +118,6 @@ div.card { cursor: default; }
 .cap small { font-size: .72rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
 .cap strong { font-size: clamp(2.2rem, 10vw, 4.2rem); font-weight: 900; line-height: .95; letter-spacing: -.04em; text-transform: uppercase; }
 .cap em { font: italic 1.15rem var(--serif); }
-.cap i { margin-top: 1svh; padding: 8px 18px; border-radius: 999px; background: var(--accent); color: var(--bg); font-style: normal; font-size: .8rem; font-weight: 800; }
 .noscript { padding: 40px 6vw; text-align: center; }
 
 /* 4 · El belén: travelling panorámico */

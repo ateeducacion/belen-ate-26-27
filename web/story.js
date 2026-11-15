@@ -1,4 +1,4 @@
-// Construye los capítulos del recorrido a partir de content.js. Usa `content`, `thumb` y `showPortrait` de app.js.
+// Construye los capítulos del recorrido a partir de content.js. Usa `content` y `thumb` de app.js.
 const cast = Object.fromEntries(content.people.map(person => [person.id, person]));
 
 function make(tag, className, text) {
@@ -41,8 +41,8 @@ content.chapters.forEach((chapter, index) => {
   const track = make('div', 'track');
 
   members.forEach((person, i) => {
-    const clickable = Boolean(cast[person.id]);
-    const card = make(clickable ? 'button' : 'div', 'card');
+    // Las tarjetas no son pulsables: aquí solo se desliza; las láminas se abren en «Tu lámina».
+    const card = make('div', 'card');
     card.style.setProperty('--i', i);
     const [kind, motto] = person.role.split(' · ');
     const big = make('span', 'ghost-name', person.name.split(' ')[0]);
@@ -56,19 +56,6 @@ content.chapters.forEach((chapter, index) => {
     const caption = make('span', 'cap');
     caption.append(make('small', '', kind), make('strong', '', person.name), make('em', '', motto));
     card.append(big, image, caption);
-    if (clickable) {
-      card.type = 'button';
-      caption.append(make('i', '', 'Ver lámina ↗'));
-      card.addEventListener('click', () => showPortrait(person));
-      // El carrusel se mueve con el scroll: al llegar con el teclado, lleva la página hasta esa figura.
-      card.addEventListener('focus', () => {
-        if (!card.matches(':focus-visible')) return;
-        const box = reel.getBoundingClientRect();
-        const steps = members.length - 1;
-        const hold = 50 / (steps * 65 + 100); // misma pausa inicial y final que .reel en styles.css
-        scrollTo({ top: scrollY + box.top + (hold + (i / Math.max(steps, 1)) * (1 - 2 * hold)) * (box.height - innerHeight) });
-      });
-    }
     track.append(card);
   });
 
