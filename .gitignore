@@ -2,3 +2,8 @@
 references/
 download-references.sh
 .DS_Store
+# Borradores de personajes pendientes de confirmar antes de su publicación.
+output/
+tmp/
+# Capturas y registros de las pruebas en navegador.
+.playwright-mcp/

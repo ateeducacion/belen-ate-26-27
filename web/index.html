@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#112d29">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060f1d">
   <meta name="description" content="El belén de ATE: una felicitación hecha entre compañeros. Descubre sus personajes y guarda tu lámina navideña.">
   <title>ATE les desea Feliz Navidad</title>
   <link rel="canonical" href="https://ateeducacion.github.io/belen-ate-26-27/">
@@ -26,31 +26,98 @@
   <link rel="stylesheet" href="styles.css">
   <script src="content.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="story.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#personajes">Saltar a los personajes</a>
-  <header class="topbar"><a class="brand" href="#inicio" aria-label="Área de Tecnología Educativa, inicio"><img class="ate-logo" src="assets/ate-logo.png" width="556" height="575" alt="Área de Tecnología Educativa"><span>Una Navidad compartida</span></a><nav aria-label="Principal"><a href="#belen">El belén</a><a href="#personajes">Tu lámina</a></nav></header>
+  <a class="skip" href="#personajes">Saltar a las láminas</a>
+  <div class="progress" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Área de Tecnología Educativa, inicio"><img class="ate-logo" src="assets/ate-logo.png" width="556" height="575" alt="Área de Tecnología Educativa"></a>
+    <nav aria-label="Principal"><a href="#belen">El belén</a><a href="#personajes">Tu lámina</a></nav>
+  </header>
+
   <main id="inicio">
-    <section class="hero" aria-labelledby="saludo">
-      <div class="hero-art" aria-hidden="true"></div>
-      <div class="hero-copy"><p class="eyebrow">De nuestro equipo, para ustedes</p><h1 id="saludo">ATE les desea<br><em>Feliz Navidad</em></h1><p>Un belén, muchas historias y las personas que hacen especial nuestro día a día.</p><a class="button gold" href="#personajes">Encuentra tu personaje <span aria-hidden="true">↗</span></a></div>
-      <span class="hero-foot">Hecho con cariño, entre compañeros</span>
+    <section class="hero" data-p="pin" aria-labelledby="saludo">
+      <div class="stage">
+        <div class="stars s1" aria-hidden="true"></div>
+        <div class="stars s2" aria-hidden="true"></div>
+        <img class="hero-star" src="assets/figuras/web/star.webp" width="996" height="960" alt="">
+        <div class="hero-land" aria-hidden="true"><img src="assets/background.webp" width="1672" height="941" alt=""></div>
+        <div class="hero-copy">
+          <p class="eyebrow">De nuestro equipo, para ustedes</p>
+          <h1 id="saludo"><span>ATE les desea</span> Feliz Navidad</h1>
+        </div>
+        <p class="hero-mid">Este año hemos montado<br>un belén <em>muy nuestro</em>.</p>
+        <div class="flash" aria-hidden="true"></div>
+        <p class="cue" aria-hidden="true">Desliza<span>↓</span></p>
+      </div>
     </section>
-    <section id="belen" class="section scene-section" aria-labelledby="scene-title">
-      <div class="section-heading"><div><p class="eyebrow">Todos tenemos un lugar</p><h2 id="scene-title">Nuestro pequeño belén</h2></div><p>Una escena para encontrarnos y celebrar lo que compartimos.</p></div>
-      <div class="scene" id="scene"><div class="scene-empty"><span aria-hidden="true">✦</span><p>Estamos preparando nuestro belén</p><small>Pronto estarán aquí todos los personajes de ATE.</small></div></div>
-      <div class="scene-toolbar"><p id="scene-note">Escenario navideño · personajes en preparación</p><a id="scene-download" class="text-link" hidden download>Descargar el belén completo ↓</a></div>
+
+    <section class="intro" aria-label="Este año el belén somos nosotros">
+      <p class="shout" data-p="view" style="--dir:1">Este año</p>
+      <p class="shout" data-p="view" style="--dir:-1">el belén</p>
+      <p class="shout" data-p="view" style="--dir:1">somos</p>
+      <p class="shout accent" data-p="view" style="--dir:-1">nosotros</p>
+      <ul class="stats">
+        <li data-p="view"><strong>17</strong>compañeros</li>
+        <li data-p="view"><strong>5</strong>escenas</li>
+        <li data-p="view"><strong>1</strong>portal</li>
+      </ul>
+      <div class="parade" data-p="view" aria-hidden="true"><div id="parade"></div></div>
+      <p class="intro-foot">Sigue bajando para conocerlos uno a uno.</p>
     </section>
-    <section id="personajes" class="section" aria-labelledby="people-title">
-      <div class="section-heading"><div><p class="eyebrow">Las caras de esta Navidad</p><h2 id="people-title">Una lámina para cada persona</h2></div><p>Elige tu nombre para ver tu personaje y descargar tu recuerdo navideño.</p></div>
+
+    <div id="chapters"></div>
+    <noscript><p class="noscript">Activa JavaScript para recorrer el belén y consultar las láminas.</p></noscript>
+
+    <section id="belen" class="finale" data-p="pin" aria-labelledby="scene-title">
+      <div class="stage">
+        <img class="pan" src="assets/belen-ate-16-9.webp" width="2560" height="1440" loading="lazy" alt="Belén completo con los diecisiete compañeros de ATE y el Niño Jesús">
+        <h2 id="scene-title" class="finale-start">Y cuando<br>nos juntamos…</h2>
+        <div class="finale-end">
+          <p>…somos este belén.</p>
+          <button id="scene-zoom" class="button" type="button">Ampliar</button>
+          <a id="scene-download" class="button outline" hidden download>Descargar ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wish" data-p="view" aria-label="Feliz Navidad">
+      <div class="stars s1" aria-hidden="true"></div>
+      <div class="stars s2" aria-hidden="true"></div>
+      <img class="wish-star" src="assets/figuras/web/star.webp" width="996" height="960" loading="lazy" alt="">
+      <p class="eyebrow">Todo el equipo de ATE les desea</p>
+      <p class="wish-big">Feliz Navidad</p>
+      <p class="wish-line">Que no falten la ilusión, la compañía y las ganas de compartir.</p>
+      <a class="button" href="#personajes">Llévate tu lámina ↓</a>
+    </section>
+
+    <section id="personajes" class="sheets" aria-labelledby="people-title">
+      <p class="eyebrow">Un recuerdo para cada persona</p>
+      <h2 id="people-title">Tu lámina</h2>
+      <p class="lead">Busca tu nombre, mira tu personaje en versión figurita o realista y descarga tu lámina A4.</p>
       <label class="search-label" for="search">Busca tu nombre<input id="search" type="search" placeholder="Por ejemplo, Ivonne…" autocomplete="off"></label>
       <p id="result-count" class="result-count" aria-live="polite"></p>
       <div id="people" class="people-grid"></div>
-      <noscript><p>Activa JavaScript para consultar los personajes y sus láminas.</p></noscript>
+
+      <div class="collection">
+        <div><h3 id="collection-title">La colección completa</h3><p>Las diecisiete láminas reunidas en dos páginas, para guardar o imprimir.</p></div>
+        <a id="collection-download" class="button dark" hidden download>Descargar las dos páginas ↓</a>
+        <p id="collection-status" class="pending">La colección estará disponible cuando terminemos las ilustraciones.</p>
+      </div>
+
+      <h3>Otras versiones del belén</h3>
+      <p class="lead">Dos interpretaciones de la escena, generadas a partir de los personajes.</p>
+      <div class="scene-versions">
+        <figure><a href="assets/belen-figuritas-integradas.png"><img src="assets/belen-figuritas-integradas.webp" width="1672" height="941" alt="Belén integrado con personajes de aspecto de figurita" loading="lazy"></a><figcaption>Figuritas integradas · las caras son una reinterpretación</figcaption><a class="text-link" href="assets/belen-figuritas-integradas.png" download>Descargar esta versión ↓</a></figure>
+        <figure><a href="assets/belen-realista-interpretacion.png"><img src="assets/belen-realista-interpretacion.webp" width="1672" height="941" alt="Interpretación realista del belén" loading="lazy"></a><figcaption>Interpretación realista · las caras son aproximadas</figcaption><a class="text-link" href="assets/belen-realista-interpretacion.png" download>Descargar esta versión ↓</a></figure>
+      </div>
     </section>
-    <section class="collection section" aria-labelledby="collection-title"><span class="ornament" aria-hidden="true">✧</span><div><p class="eyebrow">Un recuerdo de todos</p><h2 id="collection-title">La colección completa</h2><p>Las diecisiete láminas reunidas en dos páginas, para guardar o imprimir.</p><a id="collection-download" class="button gold" hidden download>Descargar las dos páginas ↓</a><p id="collection-status" class="pending">La colección estará disponible cuando terminemos las ilustraciones.</p></div></section>
   </main>
-  <footer><a class="brand" href="https://www3.gobiernodecanarias.org/medusa/ecoescuela/ate/" aria-label="Web del Área de Tecnología Educativa"><img class="ate-logo-full" src="assets/ate-logo-completo.png" width="300" height="171" alt="Área de Tecnología Educativa Medusa, con las islas Canarias"></a><p>Que no falten la ilusión, la compañía y las ganas de compartir.</p><span>Felices fiestas <span aria-hidden="true">✦</span></span></footer>
-  <dialog id="portrait"><button class="close" aria-label="Cerrar lámina" autofocus>×</button><img id="portrait-image" alt=""><p class="eyebrow" id="portrait-role"></p><h2 id="portrait-name"></h2><a id="portrait-download" class="button gold" download>Descargar lámina ↓</a><p id="portrait-pending" class="pending" hidden>Lámina imprimible en preparación.</p></dialog>
+
+  <footer><a href="https://www3.gobiernodecanarias.org/medusa/ecoescuela/ate/" aria-label="Web del Área de Tecnología Educativa"><img class="ate-logo-full" src="assets/ate-logo-completo.png" width="300" height="171" alt="Área de Tecnología Educativa Medusa, con las islas Canarias"></a><p>Hecho con cariño, entre compañeros.</p><span>Felices fiestas <span aria-hidden="true">✦</span></span></footer>
+
+  <dialog id="scene-lightbox" aria-label="Vista ampliada del belén"><button class="close" type="button" aria-label="Cerrar imagen" autofocus>×</button><img alt=""></dialog>
+  <dialog id="portrait"><button class="close" aria-label="Cerrar lámina" autofocus>×</button><div id="portrait-styles" class="style-switch" role="group" aria-label="Estilo del personaje" hidden><button id="style-figure" type="button" aria-pressed="true">Figurita</button><button id="style-realistic" type="button" aria-pressed="false">Realista</button></div><img id="portrait-image" alt=""><p class="eyebrow" id="portrait-role"></p><h2 id="portrait-name"></h2><a id="portrait-download" class="button dark" download>Descargar lámina ↓</a><p id="portrait-pending" class="pending" hidden>Lámina imprimible en preparación.</p></dialog>
 </body>
 </html>
